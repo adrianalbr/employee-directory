@@ -1,11 +1,12 @@
+import Home from "./Container/Home/Home";
 
-
-function App() {
+const App = () => {
   return (
     <div className="App">
-     <hi>Hello World</hi>
+      <Home />
+      
     </div>
   );
-}
+};
 
 export default App;
