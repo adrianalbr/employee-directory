@@ -3,16 +3,28 @@ import "./style.css";
 
 const EmployeeCard = (props) => {
     return (
-        <div className="card" style={{ width: "18rem" }}>
-            <img src="..." className="card-img-top" alt="..."/>
-            <div className="card-body">
-            <h5 className="card-title">{props.first}</h5>
-                <p className="card-text">
-                    {props.age}
-                </p>
-            </div>
-         </div>
-    );
-};
+    <div className="card">
+      <div className="img-container d-flex align-items-center justify-content-center">
+        <h2>{props.firstName} {props.lastName}</h2>
+      </div>
+      <div className="content">
+        <ul>
+          <li>
+            <strong>Full Name:</strong> {props.firstName} {props.lastName}
+          </li>
+          <li>
+            <strong>City:</strong> {props.city}
+          </li>
+          <li>
+            <strong>Username:</strong> {props.username}
+          </li>
+          <li>
+            <strong>Age:</strong> {props.age}
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+}
 
 export default EmployeeCard;
