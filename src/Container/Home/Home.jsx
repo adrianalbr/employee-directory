@@ -5,7 +5,7 @@ import Api from "../../utils/Api";
 const Home = () => {
   const [users, setUsers] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
-  const [order, setOrder] = useState("descend");
+  const [order, setOrder] = useState("ascend");
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -33,13 +33,14 @@ const Home = () => {
     };
 
     const orderArr = users.sort(compare);
-    setSortedUsers(orderArr)
+    setSortedUsers([...orderArr])
     console.log("O", orderArr);
-  }
+  };
 
-  function handleSearchTerm (event) {
-      setSearchTerm(event.target.value)
-  }
+  const handleSearchTerm = (event) => {
+      let value = event.target.value;
+      setSearchTerm(value);
+  };
 //   const filteredEmployees = data.filter(employee => employee.name.toLowerCase().startsWith(searchTerm.toLowerCase()));
 
   return (
@@ -48,29 +49,12 @@ const Home = () => {
         <div className="col">
           <h1 className="text-center">Employee Directory</h1>
         </div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand" href="/">
-            Search Employee List
-          </a>
+        </div>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <form className="form-inline my-2 my-lg-0">
-              <input
-                className="form-control mr-sm-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button
-                className="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
-          </div>
-        </nav>
-
+      <div className="col-sm-4">
+          <div className="input-group" >
+      <input type="text" className="form-control mb-3 mt-3" name="search" value={searchTerm} onChange={handleSearchTerm} placeholder="Search"/>
+      </div>
         <div>
           <button type="button" className="btn btn-primary" onClick={sort}>
             Sort by name
