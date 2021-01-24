@@ -6,13 +6,12 @@ The objective of this application is to create a employee directory with React. 
 
 ## Installation
 
-The application is deployed here - 
+The application is deployed here - https://adrianalbr.github.io/employee-directory/
 
 
 ## Demo
 
-
-
+![EmployeeDemo](public/assets/EmployeeDemo.gif)
 
 ## Credits
 
@@ -23,6 +22,8 @@ This application used the following technology:
 - Bootstrap
 - Random User API](https://randomuser.me/
 
+- - -
 
+All rights reserved Adriana Bonilla-Ramirez 2020
 
 
