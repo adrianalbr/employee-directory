@@ -6,7 +6,7 @@ const Home = () => {
   const [users, setUsers] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
   const [order, setOrder] = useState("ascend");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     Api.getEmployees().then((res) => {
@@ -16,18 +16,19 @@ const Home = () => {
     });
   }, []);
 
+  const handleSearch = event => {
+    let value = event.target.value;
+    setSearch(value);
+};
+
   //write a function to change value of order
   const sort =()=> {
     const compare = (a, b) => {
       if (order === "ascend") {
-        //condition to check if ascend or descend
-        //console.log(a.name.first, b.name.first)
         let ref = a.name.first.localeCompare(b.name.first);
-        // console.log(ref)
         return ref;
       } else {
         let ref = b.name.first.localeCompare(a.name.first);
-        // console.log(ref)
         return ref;
       }
     };
@@ -35,13 +36,8 @@ const Home = () => {
     const orderArr = users.sort(compare);
     setSortedUsers([...orderArr])
     console.log("O", orderArr);
-  };
 
-  const handleSearchTerm = (event) => {
-      let value = event.target.value;
-      setSearchTerm(value);
   };
-//   const filteredEmployees = data.filter(employee => employee.name.toLowerCase().startsWith(searchTerm.toLowerCase()));
 
   return (
     <div className="container">
@@ -53,25 +49,31 @@ const Home = () => {
 
       <div className="col-sm-4">
           <div className="input-group" >
-      <input type="text" className="form-control mb-3 mt-3" name="search" value={searchTerm} onChange={handleSearchTerm} placeholder="Search"/>
+      <input type="text" className="form-control mb-3 mt-3" name="search" value={search} onChange={handleSearch} placeholder="Search"/>
       </div>
         <div>
           <button type="button" className="btn btn-primary" onClick={sort}>
-            Sort by name
+            Sort by name in descending order
           </button>
         </div>
       </div>
       <div className="row">
-        {sortedUsers.map((info) => (
+      
+      {sortedUsers
+      .filter(
+       emp => emp.name.first.toLowerCase().includes(search.toLowerCase()) ||
+       emp.name.last.toLowerCase().includes(search.toLowerCase()) ||
+       emp.email.toLowerCase().includes(search.toLowerCase()))
+      .map((info => (
           <EmployeeCard
             key={info.login.uuid}
             firstName={info.name.first}
             lastName={info.name.last}
             city={info.location.city}
             username={info.login.username}
-            age={info.dob.age}
+            email={info.email}
           />
-        ))}
+        )))}
       </div>
     </div>
   );
